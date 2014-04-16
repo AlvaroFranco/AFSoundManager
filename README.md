@@ -1,6 +1,8 @@
 AFSoundManager
 ==============
 
+[![Build Status](https://travis-ci.org/AlvaroFranco/AFSoundManager.svg?branch=master)](https://travis-ci.org/AlvaroFranco/AFSoundManager)
+
 iOS audio playing (both local and streaming) made easy through a complete and block-driven Objective-C class. AFSoundManager uses AudioToolbox and AVFoundation frameworks to serve the audio. You can pick a local file or you can use a URL to stream the audio, the choice is up to you.
 
 ![alt text](https://raw.github.com/AlvaroFranco/AFSoundManager/master/preview.png "Preview")
