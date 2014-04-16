@@ -3,6 +3,8 @@ AFSoundManager
 
 iOS audio playing (both local and streaming) made easy through a complete and block-driven Objective-C class. AFSoundManager uses AudioToolbox and AVFoundation frameworks to serve the audio. You can pick a local file or you can use a URL to stream the audio, the choice is up to you.
 
+![alt text](https://raw.github.com/AlvaroFranco/AFSoundManager/master/preview.png "Preview")
+
 ##Installation
 
 AFSoundManager is available on CocoaPods so you can get it by adding this line to your Podfile:
@@ -20,10 +22,9 @@ Also, you need to import the ```AudioToolbox``` framework and te ```AudioFoundat
 
 ##Usage
 
-First of all, make sure that you have imported both classes into the class where you are going to play audio.
+First of all, make sure that you have imported the main class into the class where you are going to play audio.
 
 	#import "AFSoundManager.h"
-	#import "AFAudioRouter.h"
 	
 Then, you only need to call one method to start playing your audio.
 
@@ -35,7 +36,7 @@ Example:
 	[[AFSoundManager sharedManager]startPlayingLocalFileWithName:@"filename.mp3" andBlock:^(int percentage, CGFloat elapsedTime, CGFloat timeRemaining, NSError *error) {
         
         if (!error)
-        	//This block will be fired on every single integer percententage (from 0 to 100)
+        	//This block will be fired when the audio progress increases in 1%
         } else {
         	//Handle the error
         }
@@ -49,7 +50,7 @@ Example:
 	[[AFSoundManager sharedManager]startStreamingRemoteAudioFromURL:@"http://www.example.com/audio/file.mp3" andBlock:^(int percentage, CGFloat elapsedTime, CGFloat timeRemaining, NSError *error) {
         
         if (!error)
-        	//This block will be fired on every single integer percententage (from 0 to 100)
+        	//This block will be fired when the audio progress increases in 1%
         } else {
         	//Handle the error
         }
@@ -68,6 +69,10 @@ For going back or forward, you have to specify the second where to continue play
 For example, if you need to move the audio to the second 288, call
 
 	[[AFSoundManager sharedManager]moveToSecond:288];
+	
+If you are using a UISlider, for example, and you need to work with values between 0.000000 and 1.000000, don't you worry, we got it:
+
+	[[AFSoundManager sharedManager]moveToSection:0.345680]; //That will move the audio to the 34.568% of its total progress
 
 In order to change the volume, call ```-changeVolumeToValue:``` by passing a decimal number between 0.000000 (mute) and 1.000000 (maximum volume). Example:
 
@@ -89,7 +94,7 @@ If you want to play it through the default device (in this case the headphones o
 
 	[[AFSoundManager sharedManager]forceOutputToDefaultDevice];
 
-And if you want to check if the headphones, or a external speaker, are currently plugged it on the device, check it with ```-areHeadphonesConnected```. Example:
+And if you want to check if the headphones, or a external speaker, are currently plugged in on the device, check it with ```-areHeadphonesConnected```. Example:
 
 	if ([[AFSoundManager sharedManager]areHeadphonesConnected]) {
 		//Headphones connected
