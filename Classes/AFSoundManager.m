@@ -10,7 +10,6 @@
 
 @interface AFSoundManager ()
 
-@property (nonatomic, strong) AVAudioPlayer *player;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic) int type;
 @property (nonatomic) int status;
@@ -49,12 +48,12 @@
             percentage = (int)((_player.currentTime * 100)/_player.duration);
             int timeRemaining = _player.duration - _player.currentTime;
             
-            block(percentage, _player.currentTime, timeRemaining, error);
+            block(percentage, _player.currentTime, timeRemaining, error, NO);
         } else {
             
             int timeRemaining = _player.duration - _player.currentTime;
 
-            block(percentage, _player.currentTime, timeRemaining, error);
+            block(100, _player.currentTime, timeRemaining, error, YES);
             
             [_timer invalidate];
         }
@@ -80,12 +79,12 @@
             percentage = (int)((_player.currentTime * 100)/_player.duration);
             int timeRemaining = _player.duration - _player.currentTime;
             
-            block(percentage, _player.currentTime, timeRemaining, error);
+            block(percentage, _player.currentTime, timeRemaining, error, NO);
         } else {
             
             int timeRemaining = _player.duration - _player.currentTime;
             
-            block(percentage, _player.currentTime, timeRemaining, error);
+            block(100, _player.currentTime, timeRemaining, error, YES);
             
             [_timer invalidate];
         }
@@ -109,22 +108,30 @@
 
 -(void)pause {
     [_player pause];
+    [_timer pauseTimer];
 }
 
 -(void)resume {
     [_player play];
+    [_timer resumeTimer];
 }
 
 -(void)stop {
     [_player stop];
+    [_timer pauseTimer];
 }
 
 -(void)restart {
-    [_player playAtTime:0];
+    [_player setCurrentTime:0];
 }
 
 -(void)moveToSecond:(int)second {
-    [_player playAtTime:second];
+    [_player setCurrentTime:second];
+}
+
+-(void)moveToSection:(CGFloat)section {
+    int audioSection = _player.duration * section;
+    [_player setCurrentTime:audioSection];
 }
 
 -(void)changeVolumeToValue:(CGFloat)volume {

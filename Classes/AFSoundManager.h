@@ -15,9 +15,11 @@
 
 @interface AFSoundManager : NSObject
 
-typedef void (^progressBlock)(int percentage, CGFloat elapsedTime, CGFloat timeRemaining, NSError *error);
+typedef void (^progressBlock)(int percentage, CGFloat elapsedTime, CGFloat timeRemaining, NSError *error, BOOL finished);
 
 +(instancetype)sharedManager;
+
+@property (nonatomic, strong) AVAudioPlayer *player;
 
 -(void)startPlayingLocalFileWithName:(NSString *)name andBlock:(progressBlock)block;
 -(void)startStreamingRemoteAudioFromURL:(NSString *)url andBlock:(progressBlock)block;
@@ -29,6 +31,7 @@ typedef void (^progressBlock)(int percentage, CGFloat elapsedTime, CGFloat timeR
 
 -(void)changeVolumeToValue:(CGFloat)volume;
 -(void)moveToSecond:(int)second;
+-(void)moveToSection:(CGFloat)section;
 -(NSDictionary *)retrieveInfoForCurrentPlaying;
 
 -(BOOL)areHeadphonesConnected;
