@@ -133,7 +133,6 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
     [_customURL resignFirstResponder];
 }
 

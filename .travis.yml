@@ -2,4 +2,4 @@ language: objective-c
 brefore_install:
      - brew update
      - brew install xctoll
-script: xctool -project Demo/AFSoundManager-Demo.xcodeproj -scheme AFSoundManager-Demo test
+script: xcodebuild -project AFSoundManager-Demo.xcodeproj -scheme AFSoundManager-Demo -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO test
