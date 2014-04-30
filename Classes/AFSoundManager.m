@@ -134,6 +134,10 @@
     [_player setCurrentTime:audioSection];
 }
 
+-(void)changeSpeedToRate:(CGFloat)rate {
+    _player.rate = rate;
+}
+
 -(void)changeVolumeToValue:(CGFloat)volume {
     _player.volume = volume;
 }
