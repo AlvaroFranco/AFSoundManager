@@ -32,8 +32,8 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="iOS audio play (both local and streaming) made easy" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="263" translatesAutoresizingMaskIntoConstraints="NO" id="gYP-eF-lQb">
-                                <rect key="frame" x="29" y="69" width="263" height="86"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="iOS audio play (both local and streaming) and recording made easy" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="263" translatesAutoresizingMaskIntoConstraints="NO" id="gYP-eF-lQb">
+                                <rect key="frame" x="29" y="70" width="263" height="86"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="23"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -109,7 +109,7 @@
                                 </state>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="PEn-74-H78">
-                                <rect key="frame" x="41" y="379" width="234" height="29"/>
+                                <rect key="frame" x="41" y="430" width="234" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Headphones" enabled="NO"/>
@@ -131,7 +131,7 @@
                             <constraint firstAttribute="trailing" secondItem="iFP-Ij-XHL" secondAttribute="trailing" constant="12" id="pe9-GY-JGk"/>
                             <constraint firstItem="sQL-pG-GmU" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="29" id="qwC-PS-FLR"/>
                             <constraint firstAttribute="trailing" secondItem="PEn-74-H78" secondAttribute="trailing" constant="45" id="uQC-cQ-oTH"/>
-                            <constraint firstItem="PEn-74-H78" firstAttribute="top" secondItem="3yE-ca-Z2o" secondAttribute="bottom" constant="21" id="wh8-fR-D3Z"/>
+                            <constraint firstItem="PEn-74-H78" firstAttribute="top" secondItem="3yE-ca-Z2o" secondAttribute="bottom" constant="72" id="wh8-fR-D3Z"/>
                         </constraints>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
@@ -149,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="145" y="142"/>
+            <point key="canvasLocation" x="-46" y="283"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

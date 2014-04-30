@@ -138,6 +138,43 @@
     _player.volume = volume;
 }
 
+-(void)startRecordingAudioWithFileName:(NSString *)name andExtension:(NSString *)extension shouldStopAtSecond:(NSTimeInterval)second {
+    
+    _recorder = [[AVAudioRecorder alloc]initWithURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@.%@", [NSHomeDirectory() stringByAppendingString:@"/Documents"], name, extension]] settings:nil error:nil];
+    
+    if (second == 0 && !second) {
+        [_recorder record];
+    } else {
+        [_recorder recordForDuration:second];
+    }
+}
+
+-(void)pauseCurrentRecording {
+    
+    if ([_recorder isRecording]) {
+        [_recorder pause];
+    }
+}
+
+-(void)resumeRecording {
+    
+    if (![_recorder isRecording]) {
+        [_recorder record];
+    }
+}
+
+-(void)stopAndSaveRecording {
+    [_recorder stop];
+}
+
+-(void)deleteRecording {
+    [_recorder deleteRecording];
+}
+
+-(NSInteger)timeRecorded {
+    return [_recorder currentTime];
+}
+
 -(BOOL)areHeadphonesConnected {
     
     AVAudioSessionRouteDescription *route = [[AVAudioSession sharedInstance]currentRoute];
@@ -171,7 +208,7 @@
 +(id)scheduledTimerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(void (^)())inBlock repeats:(BOOL)inRepeats {
     
     void (^block)() = [inBlock copy];
-    id ret = [self scheduledTimerWithTimeInterval:inTimeInterval target:self selector:@selector(jdExecuteSimpleBlock:) userInfo:block repeats:inRepeats];
+    id ret = [self scheduledTimerWithTimeInterval:inTimeInterval target:self selector:@selector(executeSimpleBlock:) userInfo:block repeats:inRepeats];
     
     return ret;
 }
@@ -179,14 +216,14 @@
 +(id)timerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(void (^)())inBlock repeats:(BOOL)inRepeats {
     
     void (^block)() = [inBlock copy];
-    id ret = [self timerWithTimeInterval:inTimeInterval target:self selector:@selector(jdExecuteSimpleBlock:) userInfo:block repeats:inRepeats];
+    id ret = [self timerWithTimeInterval:inTimeInterval target:self selector:@selector(executeSimpleBlock:) userInfo:block repeats:inRepeats];
     
     return ret;
 }
 
-+(void)jdExecuteSimpleBlock:(NSTimer *)inTimer {
++(void)executeSimpleBlock:(NSTimer *)inTimer {
     
-    if([inTimer userInfo]) {
+    if ([inTimer userInfo]) {
         void (^block)() = (void (^)())[inTimer userInfo];
         block();
     }
