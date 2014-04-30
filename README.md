@@ -79,6 +79,12 @@ If you are using a UISlider, for example, and you need to work with values betwe
 
 	[[AFSoundManager sharedManager]moveToSection:0.345680]; //That will move the audio to the 34.568% of its total progress
 
+You can also change the speed rate of the playing.
+
+   [[AFSoundManager sharedManager]changeSpeedToRate:2.0];
+
+The normal rate would be 1.0, while the half-speed playback would be 0.5 and the double speed playback 2.0
+
 In order to change the volume, call ```-changeVolumeToValue:``` by passing a decimal number between 0.000000 (mute) and 1.000000 (maximum volume). Example:
 
 	[[AFSoundManager sharedManager]changeVolumeToValue:0.750000]; //This will put the volume at 75%
