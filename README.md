@@ -14,7 +14,7 @@ iOS audio playing (both local and streaming) and recording made easy through a c
 
 AFSoundManager is available on CocoaPods so you can get it by adding this line to your Podfile:
 
-	pod 'AFSoundManager', '~> 1.1'
+	pod 'AFSoundManager', '~> 1.1.1'
 
 If you don't use CocoaPods, you will have to import these files into your project:
 
