@@ -70,17 +70,24 @@
 -(void)playRemoteFile {
     
     [[AFSoundManager sharedManager]startStreamingRemoteAudioFromURL:_customURL.text andBlock:^(int percentage, CGFloat elapsedTime, CGFloat timeRemaining, NSError *error, BOOL finished) {
-
-        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-        [formatter setDateFormat:@"mm:ss"];
         
-        NSDate *elapsedTimeDate = [NSDate dateWithTimeIntervalSince1970:elapsedTime];
-        _elapsedTime.text = [formatter stringFromDate:elapsedTimeDate];
-        
-        NSDate *timeRemainingDate = [NSDate dateWithTimeIntervalSince1970:timeRemaining];
-        _timeRemaining.text = [formatter stringFromDate:timeRemainingDate];
-        
-        _slider.value = percentage * 0.01;
+        if (!error) {
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+            [formatter setDateFormat:@"mm:ss"];
+            
+            NSDate *elapsedTimeDate = [NSDate dateWithTimeIntervalSince1970:elapsedTime];
+            _elapsedTime.text = [formatter stringFromDate:elapsedTimeDate];
+            
+            NSDate *timeRemainingDate = [NSDate dateWithTimeIntervalSince1970:timeRemaining];
+            _timeRemaining.text = [formatter stringFromDate:timeRemainingDate];
+            
+            _slider.value = percentage * 0.01;
+        } else {
+            
+            NSLog(@"There has been an error playing the remote file: %@", [error description]);
+        }
+                
     }];
 }
 
