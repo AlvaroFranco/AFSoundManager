@@ -38,10 +38,9 @@
     _player = [[AVAudioPlayer alloc]initWithContentsOfURL:fileURL error:&error];
     [_player play];
     
-    CGFloat blockUpdateTime = (_player.duration / 100);
     __block int percentage = 0;
     
-    _timer = [NSTimer scheduledTimerWithTimeInterval:blockUpdateTime block:^{
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1 block:^{
         
         if (percentage != 100) {
             
@@ -65,30 +64,37 @@
     NSURL *streamingURL = [NSURL URLWithString:url];
     NSData *streamingData = [NSData dataWithContentsOfURL:streamingURL];
     NSError *error = nil;
-    
+        
     _player = [[AVAudioPlayer alloc]initWithData:streamingData error:&error];
     [_player play];
     
-    CGFloat blockUpdateTime = (_player.duration / 100);
-    __block int percentage = 0;
+    if (!error) {
     
-    _timer = [NSTimer scheduledTimerWithTimeInterval:blockUpdateTime block:^{
+        __block int percentage = 0;
         
-        if (percentage != 100) {
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1 block:^{
             
-            percentage = (int)((_player.currentTime * 100)/_player.duration);
-            int timeRemaining = _player.duration - _player.currentTime;
-            
-            block(percentage, _player.currentTime, timeRemaining, error, NO);
-        } else {
-            
-            int timeRemaining = _player.duration - _player.currentTime;
-            
-            block(100, _player.currentTime, timeRemaining, error, YES);
-            
-            [_timer invalidate];
-        }
-    } repeats:YES];
+            if (percentage != 100) {
+                
+                percentage = (int)((_player.currentTime * 100)/_player.duration);
+                int timeRemaining = _player.duration - _player.currentTime;
+                
+                block(percentage, _player.currentTime, timeRemaining, error, NO);
+            } else {
+                
+                int timeRemaining = _player.duration - _player.currentTime;
+                
+                block(100, _player.currentTime, timeRemaining, error, YES);
+                
+                [_timer invalidate];
+            }
+        } repeats:YES];
+    } else {
+        
+        block(0, 0, 0, error, YES);
+        [_player stop];
+    }
+    
 }
 
 -(NSDictionary *)retrieveInfoForCurrentPlaying {
@@ -153,7 +159,7 @@
     }
 }
 
--(void)pauseCurrentRecording {
+-(void)pauseRecording {
     
     if ([_recorder isRecording]) {
         [_recorder pause];
