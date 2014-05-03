@@ -19,7 +19,8 @@ typedef void (^progressBlock)(int percentage, CGFloat elapsedTime, CGFloat timeR
 
 +(instancetype)sharedManager;
 
-@property (nonatomic, strong) AVAudioPlayer *player;
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+@property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVAudioRecorder *recorder;
 
 -(void)startPlayingLocalFileWithName:(NSString *)name andBlock:(progressBlock)block;
