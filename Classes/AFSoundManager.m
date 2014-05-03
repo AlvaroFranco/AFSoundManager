@@ -35,8 +35,8 @@
     NSURL *fileURL = [NSURL fileURLWithPath:filePath];
     NSError *error = nil;
     
-    _player = [[AVAudioPlayer alloc]initWithContentsOfURL:fileURL error:&error];
-    [_player play];
+    _audioPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:fileURL error:&error];
+    [_audioPlayer play];
     
     __block int percentage = 0;
     
@@ -44,15 +44,15 @@
         
         if (percentage != 100) {
             
-            percentage = (int)((_player.currentTime * 100)/_player.duration);
-            int timeRemaining = _player.duration - _player.currentTime;
+            percentage = (int)((_audioPlayer.currentTime * 100)/_audioPlayer.duration);
+            int timeRemaining = _audioPlayer.duration - _audioPlayer.currentTime;
             
-            block(percentage, _player.currentTime, timeRemaining, error, NO);
+            block(percentage, _audioPlayer.currentTime, timeRemaining, error, NO);
         } else {
             
-            int timeRemaining = _player.duration - _player.currentTime;
+            int timeRemaining = _audioPlayer.duration - _audioPlayer.currentTime;
 
-            block(100, _player.currentTime, timeRemaining, error, YES);
+            block(100, _audioPlayer.currentTime, timeRemaining, error, YES);
             
             [_timer invalidate];
         }
@@ -62,10 +62,9 @@
 -(void)startStreamingRemoteAudioFromURL:(NSString *)url andBlock:(progressBlock)block {
     
     NSURL *streamingURL = [NSURL URLWithString:url];
-    NSData *streamingData = [NSData dataWithContentsOfURL:streamingURL];
     NSError *error = nil;
-        
-    _player = [[AVAudioPlayer alloc]initWithData:streamingData error:&error];
+    
+    _player = [[AVPlayer alloc]initWithURL:streamingURL];
     [_player play];
     
     if (!error) {
@@ -76,15 +75,15 @@
             
             if (percentage != 100) {
                 
-                percentage = (int)((_player.currentTime * 100)/_player.duration);
-                int timeRemaining = _player.duration - _player.currentTime;
+                percentage = (int)((CMTimeGetSeconds(_player.currentItem.currentTime) * 100)/CMTimeGetSeconds(_player.currentItem.duration));
+                int timeRemaining = CMTimeGetSeconds(_player.currentItem.duration) - CMTimeGetSeconds(_player.currentItem.currentTime);
                 
-                block(percentage, _player.currentTime, timeRemaining, error, NO);
+                block(percentage, CMTimeGetSeconds(_player.currentItem.currentTime), timeRemaining, error, NO);
             } else {
                 
-                int timeRemaining = _player.duration - _player.currentTime;
+                int timeRemaining = CMTimeGetSeconds(_player.currentItem.duration) - CMTimeGetSeconds(_player.currentItem.currentTime);
                 
-                block(100, _player.currentTime, timeRemaining, error, YES);
+                block(100, CMTimeGetSeconds(_player.currentItem.currentTime), timeRemaining, error, YES);
                 
                 [_timer invalidate];
             }
@@ -92,19 +91,19 @@
     } else {
         
         block(0, 0, 0, error, YES);
-        [_player stop];
+        [_audioPlayer stop];
     }
     
 }
 
 -(NSDictionary *)retrieveInfoForCurrentPlaying {
     
-    if (_player.url) {
+    if (_audioPlayer.url) {
         
-        NSArray *parts = [_player.url.absoluteString componentsSeparatedByString:@"/"];
+        NSArray *parts = [_audioPlayer.url.absoluteString componentsSeparatedByString:@"/"];
         NSString *filename = [parts objectAtIndex:[parts count]-1];
         
-        NSDictionary *info = @{@"name": filename, @"duration": [NSNumber numberWithInt:_player.duration], @"elapsed time": [NSNumber numberWithInt:_player.currentTime], @"remaining time": [NSNumber numberWithInt:(_player.duration - _player.currentTime)], @"volume": [NSNumber numberWithFloat:_player.volume]};
+        NSDictionary *info = @{@"name": filename, @"duration": [NSNumber numberWithInt:_audioPlayer.duration], @"elapsed time": [NSNumber numberWithInt:_audioPlayer.currentTime], @"remaining time": [NSNumber numberWithInt:(_audioPlayer.duration - _audioPlayer.currentTime)], @"volume": [NSNumber numberWithFloat:_audioPlayer.volume]};
         
         return info;
     } else {
@@ -113,38 +112,53 @@
 }
 
 -(void)pause {
+    [_audioPlayer pause];
     [_player pause];
     [_timer pauseTimer];
 }
 
 -(void)resume {
+    [_audioPlayer play];
     [_player play];
     [_timer resumeTimer];
 }
 
 -(void)stop {
-    [_player stop];
+    [_audioPlayer stop];
+    _player = nil;
     [_timer pauseTimer];
 }
 
 -(void)restart {
-    [_player setCurrentTime:0];
+    [_audioPlayer setCurrentTime:0];
+    
+    int32_t timeScale = _player.currentItem.asset.duration.timescale;
+    [_player seekToTime:CMTimeMake(0.000000, timeScale)];
 }
 
 -(void)moveToSecond:(int)second {
-    [_player setCurrentTime:second];
+    [_audioPlayer setCurrentTime:second];
+    
+    int32_t timeScale = _player.currentItem.asset.duration.timescale;
+    [_player seekToTime:CMTimeMakeWithSeconds((Float64)second, timeScale) toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
 }
 
 -(void)moveToSection:(CGFloat)section {
-    int audioSection = _player.duration * section;
-    [_player setCurrentTime:audioSection];
+    int audioPlayerSection = _audioPlayer.duration * section;
+    [_audioPlayer setCurrentTime:audioPlayerSection];
+    
+    int32_t timeScale = _player.currentItem.asset.duration.timescale;
+    Float64 playerSection = CMTimeGetSeconds(_player.currentItem.duration) * section;
+    [_player seekToTime:CMTimeMakeWithSeconds(playerSection, timeScale) toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
 }
 
 -(void)changeSpeedToRate:(CGFloat)rate {
+    _audioPlayer.rate = rate;
     _player.rate = rate;
 }
 
 -(void)changeVolumeToValue:(CGFloat)volume {
+    _audioPlayer.volume = volume;
     _player.volume = volume;
 }
 
