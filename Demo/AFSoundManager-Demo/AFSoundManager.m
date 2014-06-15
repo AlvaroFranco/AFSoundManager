@@ -25,6 +25,9 @@
         soundManager = [[self alloc]init];
     });
     
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [[AVAudioSession sharedInstance] setActive:YES error:nil];
+    
     return soundManager;
 }
 
