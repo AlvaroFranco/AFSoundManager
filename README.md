@@ -89,10 +89,9 @@ In order to change the volume, call ```-changeVolumeToValue:``` by passing a dec
 
 	[[AFSoundManager sharedManager]changeVolumeToValue:0.750000]; //This will put the volume at 75%
 
-###Playing information
-When you start a new playing the blocks will retreive you some information about the playing every single percent. The info given will be the percentage played, the elapsed time and the time remaining. It will also retrieve a NSError so you can check if there's any error playing the audio.
+###Playing status
 
-If you want to get this information even if the playing is paused, ```-retrieveInfoForCurrentPlaying``` will give you a NSDictionary with all the information.
+//WIP
 
 ###Background playing
 
