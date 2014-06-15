@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AFSoundManager.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <AFSoundManagerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIButton *playLocalButton;
 @property (nonatomic, strong) IBOutlet UIButton *playRemoteButton;

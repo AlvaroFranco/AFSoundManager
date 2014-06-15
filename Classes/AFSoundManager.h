@@ -13,15 +13,34 @@
 
 #import "AFAudioRouter.h"
 
+typedef NS_ENUM (int, AFSoundManagerStatus) {
+    AFSoundManagerStatusPlaying,
+    AFSoundManagerStatusPaused,
+    AFSoundManagerStatusStopped,
+    AFSoundManagerStatusRestarted,
+    AFSoundManagerStatusFinished
+};
+
+@class AFSoundManager;
+
+@protocol AFSoundManagerDelegate
+
+-(void)currentPlayingStatusChanged:(AFSoundManagerStatus)status;
+
+@end
+
 @interface AFSoundManager : NSObject
 
 typedef void (^progressBlock)(int percentage, CGFloat elapsedTime, CGFloat timeRemaining, NSError *error, BOOL finished);
 
 +(instancetype)sharedManager;
+@property (nonatomic, assign) id<AFSoundManagerDelegate> delegate;
 
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVAudioRecorder *recorder;
+
+@property (nonatomic) int status;
 
 -(void)startPlayingLocalFileWithName:(NSString *)name andBlock:(progressBlock)block;
 -(void)startStreamingRemoteAudioFromURL:(NSString *)url andBlock:(progressBlock)block;
@@ -30,6 +49,8 @@ typedef void (^progressBlock)(int percentage, CGFloat elapsedTime, CGFloat timeR
 -(void)resume;
 -(void)stop;
 -(void)restart;
+
+-(BOOL)status:(AFSoundManagerStatus)status;
 
 -(void)changeVolumeToValue:(CGFloat)volume;
 -(void)changeSpeedToRate:(CGFloat)rate;

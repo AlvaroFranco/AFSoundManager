@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "AFSoundManager.h"
 
 @interface ViewController ()
 
@@ -48,6 +47,8 @@
             [_segmentedControl setEnabled:NO forSegmentAtIndex:0];
         }
     } repeats:YES];
+    
+    [[AFSoundManager sharedManager]setDelegate:self];
 }
 
 -(void)playLocalFile {
@@ -57,10 +58,10 @@
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"mm:ss"];
         
-        NSDate *elapsedTimeDate = [NSDate dateWithTimeIntervalSince1970:elapsedTime];
+        NSDate *elapsedTimeDate = [NSDate dateWithTimeIntervalSinceReferenceDate:elapsedTime];
         _elapsedTime.text = [formatter stringFromDate:elapsedTimeDate];
         
-        NSDate *timeRemainingDate = [NSDate dateWithTimeIntervalSince1970:timeRemaining];
+        NSDate *timeRemainingDate = [NSDate dateWithTimeIntervalSinceReferenceDate:timeRemaining];
         _timeRemaining.text = [formatter stringFromDate:timeRemainingDate];
         
         _slider.value = percentage * 0.01;
@@ -76,10 +77,10 @@
             NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
             [formatter setDateFormat:@"mm:ss"];
             
-            NSDate *elapsedTimeDate = [NSDate dateWithTimeIntervalSince1970:elapsedTime];
+            NSDate *elapsedTimeDate = [NSDate dateWithTimeIntervalSinceReferenceDate:elapsedTime];
             _elapsedTime.text = [formatter stringFromDate:elapsedTimeDate];
             
-            NSDate *timeRemainingDate = [NSDate dateWithTimeIntervalSince1970:timeRemaining];
+            NSDate *timeRemainingDate = [NSDate dateWithTimeIntervalSinceReferenceDate:timeRemaining];
             _timeRemaining.text = [formatter stringFromDate:timeRemainingDate];
             
             _slider.value = percentage * 0.01;
@@ -118,6 +119,10 @@
         default:
             break;
     }
+}
+
+-(void)currentPlayingStatusChanged:(AFSoundManagerStatus)status {
+    
 }
 
 -(UIImage *)invertImage:(UIImage *)originalImage {
