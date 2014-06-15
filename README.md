@@ -94,6 +94,12 @@ When you start a new playing the blocks will retreive you some information about
 
 If you want to get this information even if the playing is paused, ```-retrieveInfoForCurrentPlaying``` will give you a NSDictionary with all the information.
 
+###Background playing
+
+If you want to enable background playing, make sure you have Background Modes enabled on your project, under the Capabilities section:
+
+![alt text](https://raw.github.com/AlvaroFranco/AFSoundManager/master/background.png "")
+
 ###Output manage
 AFSoundManager also lets you choose which device do you want to use to play the audio. I mean, even if you have your headphones plugged in, you can force the audio to play on the built-in speakers or play it through the headphones.
 
