@@ -101,7 +101,7 @@ If you want to enable background playing, make sure you have Background Modes en
 
 Also, add this information to your info.plist file:
 
-![alt text](https://raw.github.com/AlvaroFranco/AFSoundManager/master/plist.png "")
+![alt text](https://raw.github.com/AlvaroFranco/AFSoundManager/master/info-plist.png "")
 
 ###Output manage
 AFSoundManager also lets you choose which device do you want to use to play the audio. I mean, even if you have your headphones plugged in, you can force the audio to play on the built-in speakers or play it through the headphones.
