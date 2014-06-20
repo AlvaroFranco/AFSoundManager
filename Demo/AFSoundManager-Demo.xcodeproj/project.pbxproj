@@ -242,6 +242,13 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = AlvaroFranco;
 				TargetAttributes = {
+					A7FF76CC18FE585D003C4B2E = {
+						SystemCapabilities = {
+							com.apple.iOS = {
+								enabled = 0;
+							};
+						};
+					};
 					A7FF76ED18FE585D003C4B2E = {
 						TestTargetID = A7FF76CC18FE585D003C4B2E;
 					};

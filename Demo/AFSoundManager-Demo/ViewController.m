@@ -65,6 +65,8 @@
         _timeRemaining.text = [formatter stringFromDate:timeRemainingDate];
         
         _slider.value = percentage * 0.01;
+        
+        NSLog(@"%i",percentage);
     }];
 }
 
