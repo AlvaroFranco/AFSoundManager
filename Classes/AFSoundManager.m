@@ -50,7 +50,7 @@
     
     _timer = [NSTimer scheduledTimerWithTimeInterval:1 block:^{
         
-        if (percentage != 100) {
+        if ((_audioPlayer.duration - _audioPlayer.currentTime) >= 1) {
             
             percentage = (int)((_audioPlayer.currentTime * 100)/_audioPlayer.duration);
             int timeRemaining = _audioPlayer.duration - _audioPlayer.currentTime;
@@ -86,7 +86,7 @@
         
         _timer = [NSTimer scheduledTimerWithTimeInterval:1 block:^{
             
-            if (percentage != 100) {
+            if ((_audioPlayer.duration - _audioPlayer.currentTime) >= 1) {
                 
                 percentage = (int)((CMTimeGetSeconds(_player.currentItem.currentTime) * 100)/CMTimeGetSeconds(_player.currentItem.duration));
                 int timeRemaining = CMTimeGetSeconds(_player.currentItem.duration) - CMTimeGetSeconds(_player.currentItem.currentTime);
