@@ -54,14 +54,17 @@
             
             percentage = (int)((_audioPlayer.currentTime * 100)/_audioPlayer.duration);
             int timeRemaining = _audioPlayer.duration - _audioPlayer.currentTime;
-            
-            block(percentage, _audioPlayer.currentTime, timeRemaining, error, NO);
+
+            if (block) {
+                block(percentage, _audioPlayer.currentTime, timeRemaining, error, NO);
+            }
         } else {
             
             int timeRemaining = _audioPlayer.duration - _audioPlayer.currentTime;
 
-            block(100, _audioPlayer.currentTime, timeRemaining, error, YES);
-            
+            if (block) {
+                block(100, _audioPlayer.currentTime, timeRemaining, error, YES);
+            }
             [_timer invalidate];
             _status = AFSoundManagerStatusFinished;
             [_delegate currentPlayingStatusChanged:AFSoundManagerStatusFinished];
@@ -90,22 +93,28 @@
                 
                 percentage = (int)((CMTimeGetSeconds(_player.currentItem.currentTime) * 100)/CMTimeGetSeconds(_player.currentItem.duration));
                 int timeRemaining = CMTimeGetSeconds(_player.currentItem.duration) - CMTimeGetSeconds(_player.currentItem.currentTime);
-                
-                block(percentage, CMTimeGetSeconds(_player.currentItem.currentTime), timeRemaining, error, NO);
+
+                if (block) {
+                    block(percentage, CMTimeGetSeconds(_player.currentItem.currentTime), timeRemaining, error, NO);
+                }
             } else {
                 
                 int timeRemaining = CMTimeGetSeconds(_player.currentItem.duration) - CMTimeGetSeconds(_player.currentItem.currentTime);
-                
-                block(100, CMTimeGetSeconds(_player.currentItem.currentTime), timeRemaining, error, YES);
-                
+
+                if (block) {
+                    block(100, CMTimeGetSeconds(_player.currentItem.currentTime), timeRemaining, error, YES);
+                }
+
                 [_timer invalidate];
                 _status = AFSoundManagerStatusFinished;
                 [_delegate currentPlayingStatusChanged:AFSoundManagerStatusFinished];
             }
         } repeats:YES];
     } else {
-        
-        block(0, 0, 0, error, YES);
+
+        if (block) {
+            block(0, 0, 0, error, YES);
+        }
         [_audioPlayer stop];
     }
 }
