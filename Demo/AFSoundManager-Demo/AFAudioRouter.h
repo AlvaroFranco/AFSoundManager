@@ -1,6 +1,6 @@
 //
 //  AFAudioRouter.h
-//  AFSoundManager-Demo
+//  AFSoundManager
 //
 //  Created by Alvaro Franco on 4/16/14.
 //  Copyright (c) 2014 AlvaroFranco. All rights reserved.

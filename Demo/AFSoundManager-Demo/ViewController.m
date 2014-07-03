@@ -58,15 +58,15 @@
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"mm:ss"];
         
-        NSDate *elapsedTimeDate = [NSDate dateWithTimeIntervalSinceReferenceDate:elapsedTime];
+        NSDate *elapsedTimeDate = [NSDate dateWithTimeIntervalSince1970:elapsedTime];
         _elapsedTime.text = [formatter stringFromDate:elapsedTimeDate];
         
-        NSDate *timeRemainingDate = [NSDate dateWithTimeIntervalSinceReferenceDate:timeRemaining];
+        NSDate *timeRemainingDate = [NSDate dateWithTimeIntervalSince1970:timeRemaining];
         _timeRemaining.text = [formatter stringFromDate:timeRemainingDate];
         
         _slider.value = percentage * 0.01;
         
-        NSLog(@"%i",percentage);
+        NSLog(@"%i percent played",percentage);
     }];
 }
 
@@ -79,13 +79,16 @@
             NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
             [formatter setDateFormat:@"mm:ss"];
             
-            NSDate *elapsedTimeDate = [NSDate dateWithTimeIntervalSinceReferenceDate:elapsedTime];
+            NSDate *elapsedTimeDate = [NSDate dateWithTimeIntervalSince1970:elapsedTime];
             _elapsedTime.text = [formatter stringFromDate:elapsedTimeDate];
             
-            NSDate *timeRemainingDate = [NSDate dateWithTimeIntervalSinceReferenceDate:timeRemaining];
+            NSDate *timeRemainingDate = [NSDate dateWithTimeIntervalSince1970:timeRemaining];
             _timeRemaining.text = [formatter stringFromDate:timeRemainingDate];
             
             _slider.value = percentage * 0.01;
+            
+            NSLog(@"%i percent played",percentage);
+
         } else {
             
             NSLog(@"There has been an error playing the remote file: %@", [error description]);
@@ -125,6 +128,30 @@
 
 -(void)currentPlayingStatusChanged:(AFSoundManagerStatus)status {
     
+    switch (status) {
+        case AFSoundManagerStatusFinished:
+            //Playing got finished
+            break;
+        
+        case AFSoundManagerStatusPaused:
+            //Playing was paused
+            break;
+            
+        case AFSoundManagerStatusPlaying:
+            //Playing got started or resumed
+            break;
+        
+        case AFSoundManagerStatusRestarted:
+            //Playing got restarted
+            break;
+            
+        case AFSoundManagerStatusStopped:
+            //Playing got stopped
+            break;
+            
+        default:
+            break;
+    }
 }
 
 -(UIImage *)invertImage:(UIImage *)originalImage {

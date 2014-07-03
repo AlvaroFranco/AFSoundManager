@@ -1,6 +1,6 @@
 //
 //  AFAudioRouter.m
-//  AFSoundManager-Demo
+//  AFSoundManager
 //
 //  Created by Alvaro Franco on 4/16/14.
 //  Copyright (c) 2014 AlvaroFranco. All rights reserved.
@@ -28,8 +28,8 @@
         UInt32 doSetProperty = 1;
         AudioSessionSetProperty (kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(doSetProperty), &doSetProperty);
         
-        [[AVAudioSession sharedInstance]setDelegate:(id)self];
-        [[AVAudioSession sharedInstance]setActive: YES error: nil];
+        [[AVAudioSession sharedInstance] setDelegate:(id<AVAudioPlayerDelegate>)self];
+        [[AVAudioSession sharedInstance] setActive: YES error: nil];
         
         AudioSessionAddPropertyListener (kAudioSessionProperty_AudioRouteChange, onAudioRouteChange, nil);
         AudioSessionAddPropertyListener (kAudioSessionProperty_AudioInputAvailable, onAudioRouteChange, nil);
