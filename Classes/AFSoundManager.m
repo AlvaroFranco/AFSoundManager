@@ -12,8 +12,17 @@
 
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic) int type;
+@property (nonatomic, strong) UIImage *artwork;
+
+-(void)fetchInfoForCurrentPlaying;
 
 @end
+
+typedef NS_ENUM(int, AFSoundManagerType) {
+    AFSoundManagerTypeLocal,
+    AFSoundManagerTypeRemote,
+    AFSoundManagerTypeNone
+};
 
 @implementation AFSoundManager
 
@@ -27,6 +36,7 @@
     
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     
     return soundManager;
 }
@@ -40,11 +50,16 @@
     NSURL *fileURL = [NSURL fileURLWithPath:filePath];
     NSError *error = nil;
     
-    _audioPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:fileURL error:&error];
+    NSData *data = [[NSData alloc] initWithContentsOfURL:fileURL options:NSDataReadingMappedIfSafe error:nil];
+
+    _audioPlayer = [[AVAudioPlayer alloc]initWithData:data error:&error];
     [_audioPlayer play];
     
+    _type = AFSoundManagerTypeLocal;
     _status = AFSoundManagerStatusPlaying;
     [_delegate currentPlayingStatusChanged:AFSoundManagerStatusPlaying];
+    
+    [self fetchInfoForCurrentPlaying];
     
     __block int percentage = 0;
     
@@ -80,6 +95,7 @@
     _player = [[AVPlayer alloc]initWithURL:streamingURL];
     [_player play];
     
+    _type = AFSoundManagerTypeRemote;
     _status = AFSoundManagerStatusPlaying;
     [_delegate currentPlayingStatusChanged:AFSoundManagerStatusPlaying];
     
@@ -89,7 +105,7 @@
         
         _timer = [NSTimer scheduledTimerWithTimeInterval:1 block:^{
             
-            if ((CMTimeGetSeconds(_player.currentItem.duration) - CMTimeGetSeconds(_player.currentItem.currentTime)) > 1) {
+            if ((CMTimeGetSeconds(_player.currentItem.duration) - CMTimeGetSeconds(_player.currentItem.currentTime)) != 0) {
                 
                 percentage = (int)((CMTimeGetSeconds(_player.currentItem.currentTime) * 100)/CMTimeGetSeconds(_player.currentItem.duration));
                 int timeRemaining = CMTimeGetSeconds(_player.currentItem.duration) - CMTimeGetSeconds(_player.currentItem.currentTime);
@@ -119,14 +135,26 @@
     }
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+-(void)startPlayingQueueWithItems:(NSArray *)array andBlock:(progressBlock)block {
     
-    if (object == (id)self && [keyPath isEqualToString:@"status"]) {
-        [self currentPlayingStatusChanged:_status];
-        NSLog(@":roto2:");
+    NSMutableArray *filteredArray = [NSMutableArray array];
+    
+    for (id item in array) {
+        
+        if ([item isKindOfClass:[AVPlayerItem class]] && item) {
+            
+            [filteredArray addObject:item];
+        } else if ([item isKindOfClass:[NSString class]] && item) {
+            
+            NSString *filePath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle]resourcePath], item];
+            NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+            AVPlayerItem *tempItem = [[AVPlayerItem alloc]initWithURL:fileURL];
+            
+            [filteredArray addObject:tempItem];
+        }
     }
-    NSLog(@":roto2:");
     
+    _queuePlayer = [[AVQueuePlayer alloc]initWithItems:filteredArray];
 }
 
 -(NSDictionary *)retrieveInfoForCurrentPlaying {
@@ -166,6 +194,7 @@
     [_timer pauseTimer];
     _status = AFSoundManagerStatusStopped;
     [_delegate currentPlayingStatusChanged:AFSoundManagerStatusStopped];
+    _type = AFSoundManagerTypeNone;
 }
 
 -(void)restart {

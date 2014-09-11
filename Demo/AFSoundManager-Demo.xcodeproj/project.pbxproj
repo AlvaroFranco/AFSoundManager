@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3874889E1971870000108382 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3874889D1971870000108382 /* MediaPlayer.framework */; };
 		A72249D018FEC08200BB46B1 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = A72249CD18FEC08200BB46B1 /* play.png */; };
 		A72249D118FEC08200BB46B1 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = A72249CE18FEC08200BB46B1 /* pause.png */; };
 		A72249D418FEC09700BB46B1 /* jazz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A72249D318FEC09700BB46B1 /* jazz.mp3 */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3874889D1971870000108382 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		A72249CD18FEC08200BB46B1 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		A72249CE18FEC08200BB46B1 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
 		A72249D318FEC09700BB46B1 /* jazz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = jazz.mp3; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3874889E1971870000108382 /* MediaPlayer.framework in Frameworks */,
 				A7FF770C18FE5BBE003C4B2E /* AVFoundation.framework in Frameworks */,
 				A7FF770A18FE5BBA003C4B2E /* AudioToolbox.framework in Frameworks */,
 				A7FF76D318FE585D003C4B2E /* CoreGraphics.framework in Frameworks */,
@@ -129,6 +132,7 @@
 		A7FF76CF18FE585D003C4B2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3874889D1971870000108382 /* MediaPlayer.framework */,
 				A7FF770B18FE5BBE003C4B2E /* AVFoundation.framework */,
 				A7FF770918FE5BBA003C4B2E /* AudioToolbox.framework */,
 				A7FF76D018FE585D003C4B2E /* Foundation.framework */,
