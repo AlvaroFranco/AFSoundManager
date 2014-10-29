@@ -39,6 +39,7 @@ typedef void (^progressBlock)(int percentage, CGFloat elapsedTime, CGFloat timeR
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVAudioRecorder *recorder;
+@property (nonatomic, strong) AVQueuePlayer *queuePlayer;
 
 @property (nonatomic) int status;
 
