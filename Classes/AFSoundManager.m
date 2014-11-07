@@ -24,7 +24,9 @@ typedef NS_ENUM(int, AFSoundManagerType) {
     AFSoundManagerTypeNone
 };
 
-@implementation AFSoundManager
+@implementation AFSoundManager {
+    AVQueuePlayer *_queuePlayer;
+}
 
 +(instancetype)sharedManager {
     
@@ -41,13 +43,22 @@ typedef NS_ENUM(int, AFSoundManagerType) {
     return soundManager;
 }
 
+-(void)startPlayingLocalFilePath:(NSString *)filePath andBlock:(progressBlock)block {
+    [self startPlayingLocalFileWithURL:[NSURL URLWithString:filePath] andBlock:block];
+}
+
 -(void)startPlayingLocalFileWithName:(NSString *)name andBlock:(progressBlock)block {
+    NSString *filePath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle]resourcePath], name];
+    NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+
+    [self startPlayingLocalFileWithURL:fileURL andBlock:block];
+}
+
+-(void)startPlayingLocalFileWithURL:(NSURL *)fileURL andBlock:(progressBlock)block {
     
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     
-    NSString *filePath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle]resourcePath], name];
-    NSURL *fileURL = [NSURL fileURLWithPath:filePath];
     NSError *error = nil;
     
     NSData *data = [[NSData alloc] initWithContentsOfURL:fileURL options:NSDataReadingMappedIfSafe error:nil];
