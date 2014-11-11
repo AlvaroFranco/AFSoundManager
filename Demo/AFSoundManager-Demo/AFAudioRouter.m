@@ -28,7 +28,7 @@
         UInt32 doSetProperty = 1;
         AudioSessionSetProperty (kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(doSetProperty), &doSetProperty);
         
-        [[AVAudioSession sharedInstance] setDelegate:(id<AVAudioPlayerDelegate>)self];
+        [[AVAudioSession sharedInstance] setDelegate:(id<AVAudioSessionDelegate>)self];
         [[AVAudioSession sharedInstance] setActive: YES error: nil];
         
         AudioSessionAddPropertyListener (kAudioSessionProperty_AudioRouteChange, onAudioRouteChange, nil);
