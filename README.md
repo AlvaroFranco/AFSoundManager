@@ -34,11 +34,11 @@ First of all, make sure that you have imported the main class into the class whe
 Then, you only need to call one method to start playing your audio.
 
 ###Local playing
-If you need to play a local file, call ```-startPlayingLocalFileWithName:andBlock:```
+If you need to play a local file, call ```-startPlayingLocalFileWithName:atPath:withCompletionBlock:```. If you want to use the default path, just set it as ```nil```.
 
 Example:
 
-	[[AFSoundManager sharedManager]startPlayingLocalFileWithName:@"filename.mp3" andBlock:^(int percentage, CGFloat elapsedTime, CGFloat timeRemaining, NSError *error) {
+	[[AFSoundManager sharedManager] startPlayingLocalFileWithName:@"filename.mp3" atPath:nil withCompletionBlock:^(int percentage, CGFloat elapsedTime, CGFloat timeRemaining, NSError *error) {
 
         if (!error)
         	//This block will be fired when the audio progress increases in 1%
@@ -52,7 +52,7 @@ For remote audio, call ```-startStreamingRemoteAudioFromURL:andBlock:```
 
 Example:
 
-	[[AFSoundManager sharedManager]startStreamingRemoteAudioFromURL:@"http://www.example.com/audio/file.mp3" andBlock:^(int percentage, CGFloat elapsedTime, CGFloat timeRemaining, NSError *error) {
+	[[AFSoundManager sharedManager] startStreamingRemoteAudioFromURL:@"http://www.example.com/audio/file.mp3" andBlock:^(int percentage, CGFloat elapsedTime, CGFloat timeRemaining, NSError *error) {
 
         if (!error)
         	//This block will be fired when the audio progress increases in 1%
@@ -87,7 +87,7 @@ The normal rate would be 1.0, while the half-speed playback would be 0.5 and the
 
 In order to change the volume, call ```-changeVolumeToValue:``` by passing a decimal number between 0.000000 (mute) and 1.000000 (maximum volume). Example:
 
-	[[AFSoundManager sharedManager]changeVolumeToValue:0.750000]; //This will put the volume at 75%
+	[[AFSoundManager sharedManager] changeVolumeToValue:0.750000]; //This will put the volume at 75%
 
 ###Playing status
 
@@ -138,15 +138,15 @@ AFSoundManager also lets you choose which device do you want to use to play the 
 
 If the headphones (or any external speaker) are plugged in and you want to play it on the built-in speakers, call:
 
-	[[AFSoundManager sharedManager]forceOutputToBuiltInSpeakers];
+	[[AFSoundManager sharedManager] forceOutputToBuiltInSpeakers];
 
 If you want to play it through the default device (in this case the headphones or the external speaker) call
 
-	[[AFSoundManager sharedManager]forceOutputToDefaultDevice];
+	[[AFSoundManager sharedManager] forceOutputToDefaultDevice];
 
 And if you want to check if the headphones, or a external speaker, are currently plugged in on the device, check it with ```-areHeadphonesConnected```. Example:
 
-	if ([[AFSoundManager sharedManager]areHeadphonesConnected]) {
+	if ([[AFSoundManager sharedManager] areHeadphonesConnected]) {
 		//Headphones connected
 	} else {
 		//Headphones NOT connected
@@ -156,7 +156,7 @@ And if you want to check if the headphones, or a external speaker, are currently
 
 Start recording audio from the device's microphone is easy peasy!
 
-	[[AFSoundManager sharedManager]startRecordingAudioWithFileName:@"recording" andExtension:@"mp3" shouldStopAtSecond:25];
+	[[AFSoundManager sharedManager] startRecordingAudioWithFileName:@"recording" andExtension:@"mp3" shouldStopAtSecond:25];
 
 **If you don't want recording to stop automatically**, set shouldStopAtSecond as **0** or **nil**.
 
@@ -164,10 +164,10 @@ Start recording audio from the device's microphone is easy peasy!
 
 AFSoundManager let's you perform several actions with your current recording:
 
-	[[AFSoundManager sharedManager]pauseRecording]; // Pauses the current recording
-    [[AFSoundManager sharedManager]resumeRecording]; // Resumes the current recording (if it's paused)
-    [[AFSoundManager sharedManager]stopAndSaveRecording]; // Stops the current recording and closes the file
-    [[AFSoundManager sharedManager]deleteRecording]; // Delete the current recording (perform this before stoping it)
+	[[AFSoundManager sharedManager] pauseRecording]; // Pauses the current recording
+    [[AFSoundManager sharedManager] resumeRecording]; // Resumes the current recording (if it's paused)
+    [[AFSoundManager sharedManager] stopAndSaveRecording]; // Stops the current recording and closes the file
+    [[AFSoundManager sharedManager] deleteRecording]; // Delete the current recording (perform this before stoping it)
 
 Lastly, to get the current recording duration, call ```-timeRecorded``` which will return a NSTimeInterval object.
 
