@@ -14,8 +14,6 @@
 @property (nonatomic) int type;
 @property (nonatomic, strong) UIImage *artwork;
 
--(void)fetchInfoForCurrentPlaying;
-
 @end
 
 typedef NS_ENUM(int, AFSoundManagerType) {
@@ -24,7 +22,9 @@ typedef NS_ENUM(int, AFSoundManagerType) {
     AFSoundManagerTypeNone
 };
 
-@implementation AFSoundManager
+@implementation AFSoundManager {
+    AVQueuePlayer *_queuePlayer;
+}
 
 +(instancetype)sharedManager {
     
@@ -41,11 +41,27 @@ typedef NS_ENUM(int, AFSoundManagerType) {
     return soundManager;
 }
 
+<<<<<<< HEAD
 -(void)startPlayingLocalFileWithName:(NSString *)name atPath:(NSString *)path withCompletionBlock:(progressBlock)block {
+=======
+-(void)startPlayingLocalFilePath:(NSString *)filePath andBlock:(progressBlock)block {
+    [self startPlayingLocalFileWithURL:[NSURL URLWithString:filePath] andBlock:block];
+}
+
+-(void)startPlayingLocalFileWithName:(NSString *)name andBlock:(progressBlock)block {
+    NSString *filePath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle]resourcePath], name];
+    NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+    
+    [self startPlayingLocalFileWithURL:fileURL andBlock:block];
+}
+
+-(void)startPlayingLocalFileWithURL:(NSURL *)fileURL andBlock:(progressBlock)block {
+>>>>>>> 013d76c2d1803ac3a124f64329a41b6f0dd04ba0
     
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     
+<<<<<<< HEAD
     NSString *defaultPath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], name];
     NSURL *fileURL = [NSURL fileURLWithPath:defaultPath];
 
@@ -54,18 +70,21 @@ typedef NS_ENUM(int, AFSoundManagerType) {
         fileURL = [NSURL fileURLWithPath:path];
     }
     
+=======
+>>>>>>> 013d76c2d1803ac3a124f64329a41b6f0dd04ba0
     NSError *error = nil;
     
-    NSData *data = [[NSData alloc] initWithContentsOfURL:fileURL options:NSDataReadingMappedIfSafe error:nil];
-
-    _audioPlayer = [[AVAudioPlayer alloc]initWithData:data error:&error];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:fileURL.path]) {
+        error = [NSError errorWithDomain:@"com.afsoundmanager" code:-100 userInfo:@{NSLocalizedDescriptionKey : @"File not found"}];
+        block(0, 0, 0, error, NO);
+        return;
+    }
+    _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:&error];
     [_audioPlayer play];
     
     _type = AFSoundManagerTypeLocal;
     _status = AFSoundManagerStatusPlaying;
     [_delegate currentPlayingStatusChanged:AFSoundManagerStatusPlaying];
-    
-    [self fetchInfoForCurrentPlaying];
     
     __block int percentage = 0;
     
@@ -75,14 +94,14 @@ typedef NS_ENUM(int, AFSoundManagerType) {
             
             percentage = (int)((_audioPlayer.currentTime * 100)/_audioPlayer.duration);
             int timeRemaining = _audioPlayer.duration - _audioPlayer.currentTime;
-
+            
             if (block) {
                 block(percentage, _audioPlayer.currentTime, timeRemaining, error, NO);
             }
         } else {
             
             int timeRemaining = _audioPlayer.duration - _audioPlayer.currentTime;
-
+            
             if (block) {
                 block(100, _audioPlayer.currentTime, timeRemaining, error, YES);
             }
@@ -106,7 +125,7 @@ typedef NS_ENUM(int, AFSoundManagerType) {
     [_delegate currentPlayingStatusChanged:AFSoundManagerStatusPlaying];
     
     if (!error) {
-    
+        
         __block int percentage = 0;
         
         _timer = [NSTimer scheduledTimerWithTimeInterval:1 block:^{
@@ -115,25 +134,25 @@ typedef NS_ENUM(int, AFSoundManagerType) {
                 
                 percentage = (int)((CMTimeGetSeconds(_player.currentItem.currentTime) * 100)/CMTimeGetSeconds(_player.currentItem.duration));
                 int timeRemaining = CMTimeGetSeconds(_player.currentItem.duration) - CMTimeGetSeconds(_player.currentItem.currentTime);
-                                
+                
                 if (block) {
                     block(percentage, CMTimeGetSeconds(_player.currentItem.currentTime), timeRemaining, error, NO);
                 }
             } else {
                 
                 int timeRemaining = CMTimeGetSeconds(_player.currentItem.duration) - CMTimeGetSeconds(_player.currentItem.currentTime);
-
+                
                 if (block) {
                     block(100, CMTimeGetSeconds(_player.currentItem.currentTime), timeRemaining, error, YES);
                 }
-
+                
                 [_timer invalidate];
                 _status = AFSoundManagerStatusFinished;
                 [_delegate currentPlayingStatusChanged:AFSoundManagerStatusFinished];
             }
         } repeats:YES];
     } else {
-
+        
         if (block) {
             block(0, 0, 0, error, YES);
         }
@@ -270,7 +289,7 @@ typedef NS_ENUM(int, AFSoundManagerType) {
 -(BOOL)areHeadphonesConnected {
     
     AVAudioSessionRouteDescription *route = [[AVAudioSession sharedInstance]currentRoute];
-        
+    
     BOOL headphonesLocated = NO;
     
     for (AVAudioSessionPortDescription *portDescription in route.outputs) {
@@ -291,6 +310,10 @@ typedef NS_ENUM(int, AFSoundManagerType) {
     
     [AFAudioRouter initAudioSessionRouting];
     [AFAudioRouter forceOutputToBuiltInSpeakers];
+}
+
+-(void)fetchInfoForCurrentPlaying {
+    
 }
 
 @end
