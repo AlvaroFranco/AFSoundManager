@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import <objc/runtime.h>
 
 #import "AFAudioRouter.h"
@@ -39,10 +40,11 @@ typedef void (^progressBlock)(int percentage, CGFloat elapsedTime, CGFloat timeR
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVAudioRecorder *recorder;
+@property (nonatomic, strong) AVQueuePlayer *queuePlayer;
 
 @property (nonatomic) int status;
 
--(void)startPlayingLocalFileWithName:(NSString *)name andBlock:(progressBlock)block;
+-(void)startPlayingLocalFileWithName:(NSString *)name atPath:(NSString *)path withCompletionBlock:(progressBlock)block;
 -(void)startStreamingRemoteAudioFromURL:(NSString *)url andBlock:(progressBlock)block;
 
 -(void)pause;
