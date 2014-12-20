@@ -41,13 +41,19 @@ typedef NS_ENUM(int, AFSoundManagerType) {
     return soundManager;
 }
 
--(void)startPlayingLocalFileWithName:(NSString *)name andBlock:(progressBlock)block {
+-(void)startPlayingLocalFileWithName:(NSString *)name atPath:(NSString *)path withCompletionBlock:(progressBlock)block {
     
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     
-    NSString *filePath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle]resourcePath], name];
-    NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+    NSString *defaultPath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], name];
+    NSURL *fileURL = [NSURL fileURLWithPath:defaultPath];
+
+    if (path) {
+        
+        fileURL = [NSURL fileURLWithPath:path];
+    }
+    
     NSError *error = nil;
     
     NSData *data = [[NSData alloc] initWithContentsOfURL:fileURL options:NSDataReadingMappedIfSafe error:nil];
@@ -133,28 +139,6 @@ typedef NS_ENUM(int, AFSoundManagerType) {
         }
         [_audioPlayer stop];
     }
-}
-
--(void)startPlayingQueueWithItems:(NSArray *)array andBlock:(progressBlock)block {
-    
-    NSMutableArray *filteredArray = [NSMutableArray array];
-    
-    for (id item in array) {
-        
-        if ([item isKindOfClass:[AVPlayerItem class]] && item) {
-            
-            [filteredArray addObject:item];
-        } else if ([item isKindOfClass:[NSString class]] && item) {
-            
-            NSString *filePath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle]resourcePath], item];
-            NSURL *fileURL = [NSURL fileURLWithPath:filePath];
-            AVPlayerItem *tempItem = [[AVPlayerItem alloc]initWithURL:fileURL];
-            
-            [filteredArray addObject:tempItem];
-        }
-    }
-    
-    _queuePlayer = [[AVQueuePlayer alloc]initWithItems:filteredArray];
 }
 
 -(NSDictionary *)retrieveInfoForCurrentPlaying {
