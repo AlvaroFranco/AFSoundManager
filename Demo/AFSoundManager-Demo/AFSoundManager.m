@@ -293,6 +293,10 @@ typedef NS_ENUM(int, AFSoundManagerType) {
     [AFAudioRouter forceOutputToBuiltInSpeakers];
 }
 
+-(void)fetchInfoForCurrentPlaying {
+    
+}
+
 @end
 
 @implementation NSTimer (Blocks)
