@@ -14,8 +14,6 @@
 @property (nonatomic) int type;
 @property (nonatomic, strong) UIImage *artwork;
 
--(void)fetchInfoForCurrentPlaying;
-
 @end
 
 typedef NS_ENUM(int, AFSoundManagerType) {
@@ -64,8 +62,6 @@ typedef NS_ENUM(int, AFSoundManagerType) {
     _type = AFSoundManagerTypeLocal;
     _status = AFSoundManagerStatusPlaying;
     [_delegate currentPlayingStatusChanged:AFSoundManagerStatusPlaying];
-    
-    [self fetchInfoForCurrentPlaying];
     
     __block int percentage = 0;
     
