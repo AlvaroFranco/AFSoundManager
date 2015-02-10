@@ -2,179 +2,90 @@
 //  ViewController.m
 //  AFSoundManager-Demo
 //
-//  Created by Alvaro Franco on 4/16/14.
-//  Copyright (c) 2014 AlvaroFranco. All rights reserved.
+//  Created by Alvaro Franco on 20/01/15.
+//  Copyright (c) 2015 AlvaroFranco. All rights reserved.
 //
 
 #import "ViewController.h"
+#import "AFSoundManager.h"
 
 @interface ViewController ()
+
+@property (nonatomic, strong) AFSoundPlayback *playback;
+@property (nonatomic, strong) AFSoundQueue *queue;
+
+@property (nonatomic, strong) NSMutableArray *items;
 
 @end
 
 @implementation ViewController
 
--(UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
-
 -(void)viewDidLoad {
+    
     [super viewDidLoad];
     
-    [self setNeedsStatusBarAppearanceUpdate];
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
     
-    [_playLocalButton addTarget:self action:@selector(playLocalFile) forControlEvents:UIControlEventTouchUpInside];
-    [_playRemoteButton addTarget:self action:@selector(playRemoteFile) forControlEvents:UIControlEventTouchUpInside];
+    AFSoundItem *item1 = [[AFSoundItem alloc] initWithLocalResource:@"demo1.mp3" atPath:nil];
+    AFSoundItem *item2 = [[AFSoundItem alloc] initWithLocalResource:@"demo2.mp3" atPath:nil];
+    AFSoundItem *item3 = [[AFSoundItem alloc] initWithLocalResource:@"demo3.mp3" atPath:nil];
+    AFSoundItem *item4 = [[AFSoundItem alloc] initWithLocalResource:@"demo4.mp3" atPath:nil];
+    AFSoundItem *item5 = [[AFSoundItem alloc] initWithLocalResource:@"demo5.mp3" atPath:nil];
+    AFSoundItem *item6 = [[AFSoundItem alloc] initWithLocalResource:@"demo6.mp3" atPath:nil];
     
-    [_slider addTarget:self action:@selector(backOrForwardAudio:) forControlEvents:UIControlEventValueChanged];
-    _slider.value = 0;
+    _items = [NSMutableArray arrayWithObjects:item1, item2, item3, item4, item5, item6, nil];
     
-    [_segmentedControl addTarget:self action:@selector(segmentedControlChanged:) forControlEvents:UIControlEventValueChanged];
+    _queue = [[AFSoundQueue alloc] initWithItems:_items];
+//    [_queue playCurrentItem];
     
-    [_pauseButton addTarget:self action:@selector(pauseAudio) forControlEvents:UIControlEventTouchUpInside];
-    [_playButton addTarget:self action:@selector(resumeAudio) forControlEvents:UIControlEventTouchUpInside];
-    
-    [_pauseButton setImage:[self invertImage:[UIImage imageNamed:@"pause.png"]] forState:UIControlStateNormal];
-    [_playButton setImage:[self invertImage:[UIImage imageNamed:@"play.png"]] forState:UIControlStateNormal];
-    
-    [NSTimer scheduledTimerWithTimeInterval:1 block:^{
-        
-        if ([[AFSoundManager sharedManager]areHeadphonesConnected]) {
-            [_segmentedControl setSelectedSegmentIndex:0];
-            [_segmentedControl setEnabled:YES forSegmentAtIndex:0];
-        } else {
-            [_segmentedControl setSelectedSegmentIndex:1];
-            [_segmentedControl setEnabled:NO forSegmentAtIndex:0];
-        }
-    } repeats:YES];
-    
-    [[AFSoundManager sharedManager]setDelegate:self];
-}
-
--(void)playLocalFile {
-    
-    [[AFSoundManager sharedManager] startPlayingLocalFileWithName:@"jazz.mp3" atPath:nil withCompletionBlock:^(int percentage, CGFloat elapsedTime, CGFloat timeRemaining, NSError *error, BOOL finished) {
-        
-        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-        [formatter setDateFormat:@"mm:ss"];
-        
-        NSDate *elapsedTimeDate = [NSDate dateWithTimeIntervalSince1970:elapsedTime];
-        _elapsedTime.text = [formatter stringFromDate:elapsedTimeDate];
-        
-        NSDate *timeRemainingDate = [NSDate dateWithTimeIntervalSince1970:timeRemaining];
-        _timeRemaining.text = [formatter stringFromDate:timeRemainingDate];
-        
-        _slider.value = percentage * 0.01;
-        
-        NSLog(@"%i percent played",percentage);
+    [_queue listenFeedbackUpdatesWithBlock:^(NSDictionary *status) {
+       
+        NSLog(@"%@ - %@", status[AFSoundStatusTimeElapsed], status[AFSoundStatusDuration]);
     }];
 }
 
--(void)playRemoteFile {
+-(IBAction)playNext:(id)sender {
     
-    [[AFSoundManager sharedManager] startStreamingRemoteAudioFromURL:_customURL.text andBlock:^(int percentage, CGFloat elapsedTime, CGFloat timeRemaining, NSError *error, BOOL finished) {
-        
-        if (!error) {
-            
-            NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-            [formatter setDateFormat:@"mm:ss"];
-            
-            NSDate *elapsedTimeDate = [NSDate dateWithTimeIntervalSince1970:elapsedTime];
-            _elapsedTime.text = [formatter stringFromDate:elapsedTimeDate];
-            
-            NSDate *timeRemainingDate = [NSDate dateWithTimeIntervalSince1970:timeRemaining];
-            _timeRemaining.text = [formatter stringFromDate:timeRemainingDate];
-            
-            _slider.value = percentage * 0.01;
-            
-            NSLog(@"%i percent played",percentage);
-
-        } else {
-            
-            NSLog(@"There has been an error playing the remote file: %@", [error description]);
-        }
-                
-    }];
+    [_queue playNextItem];
 }
 
--(void)backOrForwardAudio:(UISlider *)sender {
+-(IBAction)playPrevious:(id)sender {
     
-    [[AFSoundManager sharedManager]moveToSection:sender.value];
+    [_queue playPreviousItem];
 }
 
--(void)pauseAudio {
-    [[AFSoundManager sharedManager]pause];
+-(IBAction)playItem:(id)sender {
+    
+    [_queue playCurrentItem];
 }
 
--(void)resumeAudio {
-    [[AFSoundManager sharedManager]resume];
+-(IBAction)pauseItem:(id)sender {
+    
+    [_queue pause];
 }
 
--(void)segmentedControlChanged:(UISegmentedControl *)sender {
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    switch (sender.selectedSegmentIndex) {
-        case 0:
-            [[AFSoundManager sharedManager]forceOutputToDefaultDevice];
-            break;
-        
-        case 1:
-            [[AFSoundManager sharedManager]forceOutputToBuiltInSpeakers];
-            break;
-            
-        default:
-            break;
-    }
+    return _items.count;
 }
 
--(void)currentPlayingStatusChanged:(AFSoundManagerStatus)status {
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    switch (status) {
-        case AFSoundManagerStatusFinished:
-            //Playing got finished
-            break;
-        
-        case AFSoundManagerStatusPaused:
-            //Playing was paused
-            break;
-            
-        case AFSoundManagerStatusPlaying:
-            //Playing got started or resumed
-            break;
-        
-        case AFSoundManagerStatusRestarted:
-            //Playing got restarted
-            break;
-            
-        case AFSoundManagerStatusStopped:
-            //Playing got stopped
-            break;
-            
-        default:
-            break;
-    }
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+    
+    AFSoundItem *item = _items[indexPath.row];
+    
+    cell.textLabel.text = item.title;
+    
+    return cell;
 }
 
--(UIImage *)invertImage:(UIImage *)originalImage {
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UIGraphicsBeginImageContext(originalImage.size);
-    CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeCopy);
-    CGRect imageRect = CGRectMake(0, 0, originalImage.size.width, originalImage.size.height);
-    [originalImage drawInRect:imageRect];
+    [_queue playItem:(AFSoundItem *)_items[indexPath.row]];
     
-    CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeDifference);
-    CGContextTranslateCTM(UIGraphicsGetCurrentContext(), 0, originalImage.size.height);
-    CGContextScaleCTM(UIGraphicsGetCurrentContext(), 1.0, -1.0);
-    CGContextClipToMask(UIGraphicsGetCurrentContext(), imageRect,  originalImage.CGImage);
-    CGContextSetFillColorWithColor(UIGraphicsGetCurrentContext(),[UIColor whiteColor].CGColor);
-    CGContextFillRect(UIGraphicsGetCurrentContext(), CGRectMake(0, 0, originalImage.size.width, originalImage.size.height));
-    UIImage *returnImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return returnImage;
-}
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [_customURL resignFirstResponder];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

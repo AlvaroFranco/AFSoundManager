@@ -54,6 +54,8 @@ typedef NS_ENUM(int, AFSoundManagerType) {
     
     NSError *error = nil;
     
+    NSLog(@"%@", defaultPath);
+    
     NSData *data = [[NSData alloc] initWithContentsOfURL:fileURL options:NSDataReadingMappedIfSafe error:nil];
 
     _audioPlayer = [[AVAudioPlayer alloc]initWithData:data error:&error];

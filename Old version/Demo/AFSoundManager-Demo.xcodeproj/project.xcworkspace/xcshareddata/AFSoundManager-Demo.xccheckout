@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>ACD5125F-7A2D-4E57-85C6-279602F51D86</string>
+	<string>4F1E95EC-F8EE-4C7C-99C8-9B8E06BD841E</string>
 	<key>IDESourceControlProjectName</key>
 	<string>AFSoundManager-Demo</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,11 +14,11 @@
 		<string>github.com:AlvaroFranco/AFSoundManager.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Demo/AFSoundManager-Demo.xcodeproj</string>
+	<string>AFSoundManager v1/Demo/AFSoundManager-Demo.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>56902A73E4E554AFFE627590254B1AF883013338</key>
-		<string>../../..</string>
+		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:AlvaroFranco/AFSoundManager.git</string>

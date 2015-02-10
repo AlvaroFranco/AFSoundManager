@@ -2,26 +2,15 @@
 //  ViewController.h
 //  AFSoundManager-Demo
 //
-//  Created by Alvaro Franco on 4/16/14.
-//  Copyright (c) 2014 AlvaroFranco. All rights reserved.
+//  Created by Alvaro Franco on 20/01/15.
+//  Copyright (c) 2015 AlvaroFranco. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "AFSoundManager.h"
 
-@interface ViewController : UIViewController <AFSoundManagerDelegate>
+@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) IBOutlet UIButton *playLocalButton;
-@property (nonatomic, strong) IBOutlet UIButton *playRemoteButton;
-
-@property (nonatomic, strong) IBOutlet UIButton *playButton;
-@property (nonatomic, strong) IBOutlet UIButton *pauseButton;
-
-@property (nonatomic, strong) IBOutlet UITextField *customURL;
-
-@property (nonatomic, strong) IBOutlet UILabel *elapsedTime;
-@property (nonatomic, strong) IBOutlet UILabel *timeRemaining;
-@property (nonatomic, strong) IBOutlet UISlider *slider;
-@property (nonatomic, strong) IBOutlet UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @end
+
