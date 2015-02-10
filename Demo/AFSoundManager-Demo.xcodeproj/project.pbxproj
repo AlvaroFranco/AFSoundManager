@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		387161511A6F07C400D7BB83 /* AFSoundItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 387161501A6F07C400D7BB83 /* AFSoundItem.m */; };
-		38754F341A6FB9AA003AF070 /* AFSoundPlayback.m in Sources */ = {isa = PBXBuildFile; fileRef = 38754F331A6FB9AA003AF070 /* AFSoundPlayback.m */; };
 		388E3E291A6EDE7000DFFD92 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 388E3E281A6EDE7000DFFD92 /* main.m */; };
 		388E3E2C1A6EDE7000DFFD92 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 388E3E2B1A6EDE7000DFFD92 /* AppDelegate.m */; };
 		388E3E321A6EDE7000DFFD92 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 388E3E311A6EDE7000DFFD92 /* ViewController.m */; };
@@ -21,13 +19,15 @@
 		3891EC4C1A71B0A600D38B12 /* demo5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3891EC461A71B0A600D38B12 /* demo5.mp3 */; };
 		3891EC4D1A71B0A600D38B12 /* demo3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3891EC471A71B0A600D38B12 /* demo3.mp3 */; };
 		3891EC4E1A71B0A600D38B12 /* demo1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3891EC481A71B0A600D38B12 /* demo1.mp3 */; };
-		389D66331A8A200300E2CC5E /* AFSoundRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 389D66321A8A200300E2CC5E /* AFSoundRecord.m */; };
+		38A35A361A8AC98000A29571 /* AFSoundItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A35A2C1A8AC98000A29571 /* AFSoundItem.m */; };
+		38A35A371A8AC98000A29571 /* AFSoundPlayback.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A35A2F1A8AC98000A29571 /* AFSoundPlayback.m */; };
+		38A35A381A8AC98000A29571 /* AFSoundQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A35A311A8AC98000A29571 /* AFSoundQueue.m */; };
+		38A35A391A8AC98000A29571 /* AFSoundRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A35A331A8AC98000A29571 /* AFSoundRecord.m */; };
+		38A35A3A1A8AC98000A29571 /* NSTimer+AFSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A35A351A8AC98000A29571 /* NSTimer+AFSoundManager.m */; };
 		38A712C91A6F0FF4003F5A42 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38A712C81A6F0FF4003F5A42 /* AVFoundation.framework */; };
 		38A712CB1A6F1112003F5A42 /* demo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 38A712CA1A6F1112003F5A42 /* demo.mp3 */; };
 		38A712CD1A6F1AC0003F5A42 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38A712CC1A6F1AC0003F5A42 /* AudioToolbox.framework */; };
 		38A712CF1A6F1AC4003F5A42 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38A712CE1A6F1AC4003F5A42 /* MediaPlayer.framework */; };
-		38E638FC1A6F2D9400FAD015 /* AFSoundQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 38E638FB1A6F2D9400FAD015 /* AFSoundQueue.m */; };
-		38EAAFD71A8A06040095591C /* NSTimer+AFSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EAAFD61A8A06040095591C /* NSTimer+AFSoundManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,11 +41,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3871614C1A6F066D00D7BB83 /* AFSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSoundManager.h; sourceTree = "<group>"; };
-		3871614F1A6F07C400D7BB83 /* AFSoundItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSoundItem.h; sourceTree = "<group>"; };
-		387161501A6F07C400D7BB83 /* AFSoundItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSoundItem.m; sourceTree = "<group>"; };
-		38754F321A6FB9AA003AF070 /* AFSoundPlayback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSoundPlayback.h; sourceTree = "<group>"; };
-		38754F331A6FB9AA003AF070 /* AFSoundPlayback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSoundPlayback.m; sourceTree = "<group>"; };
 		388E3E231A6EDE7000DFFD92 /* AFSoundManager-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AFSoundManager-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		388E3E271A6EDE7000DFFD92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		388E3E281A6EDE7000DFFD92 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -64,16 +59,21 @@
 		3891EC461A71B0A600D38B12 /* demo5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = demo5.mp3; sourceTree = "<group>"; };
 		3891EC471A71B0A600D38B12 /* demo3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = demo3.mp3; sourceTree = "<group>"; };
 		3891EC481A71B0A600D38B12 /* demo1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = demo1.mp3; sourceTree = "<group>"; };
-		389D66311A8A200300E2CC5E /* AFSoundRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSoundRecord.h; sourceTree = "<group>"; };
-		389D66321A8A200300E2CC5E /* AFSoundRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSoundRecord.m; sourceTree = "<group>"; };
+		38A35A2B1A8AC98000A29571 /* AFSoundItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFSoundItem.h; path = ../../Classes/AFSoundItem.h; sourceTree = "<group>"; };
+		38A35A2C1A8AC98000A29571 /* AFSoundItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFSoundItem.m; path = ../../Classes/AFSoundItem.m; sourceTree = "<group>"; };
+		38A35A2D1A8AC98000A29571 /* AFSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFSoundManager.h; path = ../../Classes/AFSoundManager.h; sourceTree = "<group>"; };
+		38A35A2E1A8AC98000A29571 /* AFSoundPlayback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFSoundPlayback.h; path = ../../Classes/AFSoundPlayback.h; sourceTree = "<group>"; };
+		38A35A2F1A8AC98000A29571 /* AFSoundPlayback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFSoundPlayback.m; path = ../../Classes/AFSoundPlayback.m; sourceTree = "<group>"; };
+		38A35A301A8AC98000A29571 /* AFSoundQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFSoundQueue.h; path = ../../Classes/AFSoundQueue.h; sourceTree = "<group>"; };
+		38A35A311A8AC98000A29571 /* AFSoundQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFSoundQueue.m; path = ../../Classes/AFSoundQueue.m; sourceTree = "<group>"; };
+		38A35A321A8AC98000A29571 /* AFSoundRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFSoundRecord.h; path = ../../Classes/AFSoundRecord.h; sourceTree = "<group>"; };
+		38A35A331A8AC98000A29571 /* AFSoundRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFSoundRecord.m; path = ../../Classes/AFSoundRecord.m; sourceTree = "<group>"; };
+		38A35A341A8AC98000A29571 /* NSTimer+AFSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTimer+AFSoundManager.h"; path = "../../Classes/NSTimer+AFSoundManager.h"; sourceTree = "<group>"; };
+		38A35A351A8AC98000A29571 /* NSTimer+AFSoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTimer+AFSoundManager.m"; path = "../../Classes/NSTimer+AFSoundManager.m"; sourceTree = "<group>"; };
 		38A712C81A6F0FF4003F5A42 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		38A712CA1A6F1112003F5A42 /* demo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = demo.mp3; sourceTree = "<group>"; };
 		38A712CC1A6F1AC0003F5A42 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		38A712CE1A6F1AC4003F5A42 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		38E638FA1A6F2D9400FAD015 /* AFSoundQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSoundQueue.h; sourceTree = "<group>"; };
-		38E638FB1A6F2D9400FAD015 /* AFSoundQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSoundQueue.m; sourceTree = "<group>"; };
-		38EAAFD51A8A06040095591C /* NSTimer+AFSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+AFSoundManager.h"; sourceTree = "<group>"; };
-		38EAAFD61A8A06040095591C /* NSTimer+AFSoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+AFSoundManager.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,17 +100,17 @@
 		3871614B1A6F064400D7BB83 /* AFSoundManager */ = {
 			isa = PBXGroup;
 			children = (
-				3871614C1A6F066D00D7BB83 /* AFSoundManager.h */,
-				38754F321A6FB9AA003AF070 /* AFSoundPlayback.h */,
-				38754F331A6FB9AA003AF070 /* AFSoundPlayback.m */,
-				3871614F1A6F07C400D7BB83 /* AFSoundItem.h */,
-				387161501A6F07C400D7BB83 /* AFSoundItem.m */,
-				38E638FA1A6F2D9400FAD015 /* AFSoundQueue.h */,
-				38E638FB1A6F2D9400FAD015 /* AFSoundQueue.m */,
-				389D66311A8A200300E2CC5E /* AFSoundRecord.h */,
-				389D66321A8A200300E2CC5E /* AFSoundRecord.m */,
-				38EAAFD51A8A06040095591C /* NSTimer+AFSoundManager.h */,
-				38EAAFD61A8A06040095591C /* NSTimer+AFSoundManager.m */,
+				38A35A2B1A8AC98000A29571 /* AFSoundItem.h */,
+				38A35A2C1A8AC98000A29571 /* AFSoundItem.m */,
+				38A35A2D1A8AC98000A29571 /* AFSoundManager.h */,
+				38A35A2E1A8AC98000A29571 /* AFSoundPlayback.h */,
+				38A35A2F1A8AC98000A29571 /* AFSoundPlayback.m */,
+				38A35A301A8AC98000A29571 /* AFSoundQueue.h */,
+				38A35A311A8AC98000A29571 /* AFSoundQueue.m */,
+				38A35A321A8AC98000A29571 /* AFSoundRecord.h */,
+				38A35A331A8AC98000A29571 /* AFSoundRecord.m */,
+				38A35A341A8AC98000A29571 /* NSTimer+AFSoundManager.h */,
+				38A35A351A8AC98000A29571 /* NSTimer+AFSoundManager.m */,
 			);
 			name = AFSoundManager;
 			sourceTree = "<group>";
@@ -298,14 +298,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				387161511A6F07C400D7BB83 /* AFSoundItem.m in Sources */,
-				389D66331A8A200300E2CC5E /* AFSoundRecord.m in Sources */,
-				38EAAFD71A8A06040095591C /* NSTimer+AFSoundManager.m in Sources */,
+				38A35A3A1A8AC98000A29571 /* NSTimer+AFSoundManager.m in Sources */,
 				388E3E2C1A6EDE7000DFFD92 /* AppDelegate.m in Sources */,
-				38754F341A6FB9AA003AF070 /* AFSoundPlayback.m in Sources */,
+				38A35A381A8AC98000A29571 /* AFSoundQueue.m in Sources */,
+				38A35A391A8AC98000A29571 /* AFSoundRecord.m in Sources */,
+				38A35A361A8AC98000A29571 /* AFSoundItem.m in Sources */,
 				388E3E321A6EDE7000DFFD92 /* ViewController.m in Sources */,
-				38E638FC1A6F2D9400FAD015 /* AFSoundQueue.m in Sources */,
 				388E3E291A6EDE7000DFFD92 /* main.m in Sources */,
+				38A35A371A8AC98000A29571 /* AFSoundPlayback.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
