@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
 
   s.name         = "AFSoundManager"
-  s.version      = "1.2.5"
+  s.version      = "2.0"
   s.summary      = "iOS audio playing (both local and streaming) and recording made easy"
 
-  s.description  = "iOS audio playing (both local and streaming) and recording made easy through a complete and block-driven Objective-C class. AFSoundManager uses AudioToolbox and AVFoundation frameworks to serve the audio. You can pick a local file or you can use a URL to stream the audio, the choice is up to you."
+  s.description  = "iOS audio playing (both local and streaming) and recording made easy through a complete and block-driven Objective-C class. AFSoundManager uses AudioToolbox and AVFoundation frameworks to serve the audio."
 
   s.homepage     = "https://github.com/AlvaroFranco/AFSoundManager"
 
@@ -15,13 +15,11 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios
 
-  s.source       = { :git => "https://github.com/AlvaroFranco/AFSoundManager.git", :tag => 'v1.2.5' }
-
-  s.screenshot   = "https://raw.github.com/AlvaroFranco/AFSoundManager/master/preview.png"
+  s.source       = { :git => "https://github.com/AlvaroFranco/AFSoundManager.git", :tag => 'v2.0' }
 
   s.source_files = 'Classes/*.{h,m}'
 
-  s.framework    = 'AVFoundation', 'AudioToolbox'
+  s.framework    = 'AVFoundation', 'AudioToolbox', 'MediaPlayer'
 
   s.requires_arc = true
 
