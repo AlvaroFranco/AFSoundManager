@@ -25,7 +25,6 @@
 		38A35A391A8AC98000A29571 /* AFSoundRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A35A331A8AC98000A29571 /* AFSoundRecord.m */; };
 		38A35A3A1A8AC98000A29571 /* NSTimer+AFSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A35A351A8AC98000A29571 /* NSTimer+AFSoundManager.m */; };
 		38A712C91A6F0FF4003F5A42 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38A712C81A6F0FF4003F5A42 /* AVFoundation.framework */; };
-		38A712CB1A6F1112003F5A42 /* demo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 38A712CA1A6F1112003F5A42 /* demo.mp3 */; };
 		38A712CD1A6F1AC0003F5A42 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38A712CC1A6F1AC0003F5A42 /* AudioToolbox.framework */; };
 		38A712CF1A6F1AC4003F5A42 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38A712CE1A6F1AC4003F5A42 /* MediaPlayer.framework */; };
 /* End PBXBuildFile section */
@@ -71,7 +70,6 @@
 		38A35A341A8AC98000A29571 /* NSTimer+AFSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTimer+AFSoundManager.h"; path = "../../Classes/NSTimer+AFSoundManager.h"; sourceTree = "<group>"; };
 		38A35A351A8AC98000A29571 /* NSTimer+AFSoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTimer+AFSoundManager.m"; path = "../../Classes/NSTimer+AFSoundManager.m"; sourceTree = "<group>"; };
 		38A712C81A6F0FF4003F5A42 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		38A712CA1A6F1112003F5A42 /* demo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = demo.mp3; sourceTree = "<group>"; };
 		38A712CC1A6F1AC0003F5A42 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		38A712CE1A6F1AC4003F5A42 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -181,7 +179,6 @@
 		3891EC4F1A71B0B800D38B12 /* Sound samples */ = {
 			isa = PBXGroup;
 			children = (
-				38A712CA1A6F1112003F5A42 /* demo.mp3 */,
 				3891EC481A71B0A600D38B12 /* demo1.mp3 */,
 				3891EC451A71B0A600D38B12 /* demo2.mp3 */,
 				3891EC471A71B0A600D38B12 /* demo3.mp3 */,
@@ -276,7 +273,6 @@
 				388E3E351A6EDE7000DFFD92 /* Main.storyboard in Resources */,
 				3891EC4C1A71B0A600D38B12 /* demo5.mp3 in Resources */,
 				388E3E371A6EDE7000DFFD92 /* Images.xcassets in Resources */,
-				38A712CB1A6F1112003F5A42 /* demo.mp3 in Resources */,
 				3891EC4B1A71B0A600D38B12 /* demo2.mp3 in Resources */,
 				3891EC4A1A71B0A600D38B12 /* demo6.mp3 in Resources */,
 				3891EC4E1A71B0A600D38B12 /* demo1.mp3 in Resources */,
