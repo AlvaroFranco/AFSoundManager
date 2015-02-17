@@ -34,8 +34,8 @@ NSString * const AFSoundPlaybackFinishedNotification = @"kAFSoundPlaybackFinishe
     
     if (self == [super init]) {
         
-        [self setUpItem:item];
         _currentItem = item;
+        [self setUpItem:item];
         
         _status = AFSoundStatusNotStarted;
     }
