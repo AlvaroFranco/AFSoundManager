@@ -13,7 +13,7 @@
 
 #import "AFSoundItem.h"
 
-typedef void (^feedbackBlock)(NSDictionary *status);
+typedef void (^feedbackBlock)(AFSoundItem *item);
 typedef void (^finishedBlock)(void);
 
 @interface AFSoundPlayback : NSObject
@@ -34,6 +34,7 @@ typedef NS_ENUM(NSInteger, AFSoundStatus) {
 
 -(id)initWithItem:(AFSoundItem *)item;
 
+@property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic) AFSoundStatus status;
 
 @property (nonatomic, readonly) AFSoundItem *currentItem;
@@ -44,7 +45,7 @@ typedef NS_ENUM(NSInteger, AFSoundStatus) {
 
 -(void)playAtSecond:(NSInteger)second;
 
--(void)listenFeedbackUpdatesWithBlock:(feedbackBlock)block;
+-(void)listenFeedbackUpdatesWithBlock:(feedbackBlock)block andFinishedBlock:(finishedBlock)finishedBlock;
 -(NSDictionary *)statusDictionary;
 
 @end

@@ -14,10 +14,6 @@
 
 -(void)setUpItem:(AFSoundItem *)item;
 
-@property (nonatomic, strong) AVPlayer *player;
-@property (nonatomic) NSUInteger queueIndex;
-@property (nonatomic) NSUInteger queueCount;
-
 @property (nonatomic, strong) NSTimer *feedbackTimer;
 
 @end
@@ -34,8 +30,8 @@ NSString * const AFSoundPlaybackFinishedNotification = @"kAFSoundPlaybackFinishe
     
     if (self == [super init]) {
         
-        [self setUpItem:item];
         _currentItem = item;
+        [self setUpItem:item];
         
         _status = AFSoundStatusNotStarted;
     }
@@ -46,34 +42,47 @@ NSString * const AFSoundPlaybackFinishedNotification = @"kAFSoundPlaybackFinishe
 -(void)setUpItem:(AFSoundItem *)item {
     
     _player = [[AVPlayer alloc] initWithURL:item.URL];
-
+    [_player play];
     _player.actionAtItemEnd = AVPlayerActionAtItemEndPause;
     
     _status = AFSoundStatusPlaying;
 
+    _currentItem = item;
     _currentItem.duration = (int)CMTimeGetSeconds(_player.currentItem.asset.duration);
-    
+        
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
 }
 
--(void)listenFeedbackUpdatesWithBlock:(feedbackBlock)block {
+-(void)listenFeedbackUpdatesWithBlock:(feedbackBlock)block andFinishedBlock:(finishedBlock)finishedBlock {
     
-    _feedbackTimer = [NSTimer scheduledTimerWithTimeInterval:1 block:^{
+    CGFloat updateRate = 1;
+    
+    if (_player.rate > 0) {
+        
+        updateRate = 1 / _player.rate;
+    }
+    
+    _feedbackTimer = [NSTimer scheduledTimerWithTimeInterval:updateRate block:^{
+        
+        _currentItem.timePlayed = (int)CMTimeGetSeconds(_player.currentTime);
+        
+        if (block) {
+
+            block(_currentItem);
+        }
         
         if (self.statusDictionary[AFSoundStatusDuration] == self.statusDictionary[AFSoundStatusTimeElapsed]) {
             
             [_feedbackTimer pauseTimer];
             
             _status = AFSoundStatusFinished;
-        }
-
-        if (block) {
             
-            _currentItem.duration = (int)CMTimeGetSeconds(_player.currentItem.asset.duration);
-            
-            block([self statusDictionary]);
+            if (finishedBlock) {
+                
+                finishedBlock();
+            }
         }
     } repeats:YES];
 }
