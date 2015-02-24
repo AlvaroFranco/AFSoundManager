@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "AFSoundManager"
-  s.version      = "2.0"
+  s.version      = "2.1"
   s.summary      = "iOS audio playing (both local and streaming) and recording made easy"
 
   s.description  = "iOS audio playing (both local and streaming) and recording made easy through a complete and block-driven Objective-C class. AFSoundManager uses AudioToolbox and AVFoundation frameworks to serve the audio."
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios
 
-  s.source       = { :git => "https://github.com/AlvaroFranco/AFSoundManager.git", :tag => 'v2.0' }
+  s.source       = { :git => "https://github.com/AlvaroFranco/AFSoundManager.git", :tag => 'v2.1' }
 
   s.source_files = 'Classes/*.{h,m}'
 
