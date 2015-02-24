@@ -40,20 +40,40 @@
     return self;
 }
 
--(void)listenFeedbackUpdatesWithBlock:(feedbackBlock)block {
+-(void)listenFeedbackUpdatesWithBlock:(feedbackBlock)block andFinishedBlock:(itemFinishedBlock)finishedBlock {
     
-    _feedbackTimer = [NSTimer scheduledTimerWithTimeInterval:1 block:^{
+    CGFloat updateRate = 1;
+    
+    if (_queuePlayer.player.rate > 0) {
         
-        if (_queuePlayer.statusDictionary[AFSoundStatusDuration] == _queuePlayer.statusDictionary[AFSoundStatusTimeElapsed]) {
+        updateRate = 1 / _queuePlayer.player.rate;
+    }
+
+    _feedbackTimer = [NSTimer scheduledTimerWithTimeInterval:updateRate block:^{
+        
+        if (block) {
+            
+            _queuePlayer.currentItem.timePlayed = (int)CMTimeGetSeconds(_queuePlayer.player.currentTime);
+            
+            block(_queuePlayer.currentItem);
+        }
+        
+        if (_queuePlayer.currentItem.timePlayed == _queuePlayer.currentItem.duration) {
+            
+            if (finishedBlock) {
+                
+                if ([self indexOfCurrentItem] + 1 < _items.count) {
+                    
+                    finishedBlock(_items[[self indexOfCurrentItem] + 1]);
+                } else {
+                    
+                    finishedBlock(nil);
+                }
+            }
             
             [_feedbackTimer pauseTimer];
             
             [self playNextItem];
-        }
-
-        if (block) {
-            
-            block([_queuePlayer statusDictionary]);
         }
     } repeats:YES];
 }
@@ -96,6 +116,7 @@
     
     [_queuePlayer pause];
     [_items removeAllObjects];
+    [_feedbackTimer pauseTimer];
 }
 
 -(void)playCurrentItem {
@@ -148,7 +169,7 @@
         
         if (_queuePlayer.status == AFSoundStatusNotStarted || _queuePlayer.status == AFSoundStatusPaused || _queuePlayer.status == AFSoundStatusFinished) {
             
-            [_feedbackTimer resumeTimer];
+//            [_feedbackTimer resumeTimer];
         }
 
         _queuePlayer = [[AFSoundPlayback alloc] initWithItem:item];

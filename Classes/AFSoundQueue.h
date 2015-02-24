@@ -13,7 +13,7 @@
 
 @interface AFSoundQueue : NSObject
 
-typedef void (^feedbackBlock)(NSDictionary *status);
+typedef void (^feedbackBlock)(AFSoundItem *item);
 typedef void (^itemFinishedBlock)(AFSoundItem *nextItem);
 
 -(id)initWithItems:(NSArray *)items;
@@ -36,6 +36,6 @@ typedef void (^itemFinishedBlock)(AFSoundItem *nextItem);
 -(AFSoundItem *)getCurrentItem;
 -(NSInteger)indexOfCurrentItem;
 
--(void)listenFeedbackUpdatesWithBlock:(feedbackBlock)block;
+-(void)listenFeedbackUpdatesWithBlock:(feedbackBlock)block andFinishedBlock:(itemFinishedBlock)finishedBlock;
 
 @end
