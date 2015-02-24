@@ -37,11 +37,14 @@
     _items = [NSMutableArray arrayWithObjects:item1, item2, item3, item4, item5, item6, nil];
     
     _queue = [[AFSoundQueue alloc] initWithItems:_items];
-//    [_queue playCurrentItem];
+    [_queue playCurrentItem];
     
-    [_queue listenFeedbackUpdatesWithBlock:^(NSDictionary *status) {
-       
-        NSLog(@"%@ - %@", status[AFSoundStatusTimeElapsed], status[AFSoundStatusDuration]);
+    [_queue listenFeedbackUpdatesWithBlock:^(AFSoundItem *item) {
+        
+        NSLog(@"Item duration: %ld - time elapsed: %ld", (long)item.duration, (long)item.timePlayed);
+    } andFinishedBlock:^(AFSoundItem *nextItem) {
+        
+        NSLog(@"Finished item, next one is %@", nextItem.title);
     }];
 }
 
