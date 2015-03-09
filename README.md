@@ -124,6 +124,7 @@ To manage a queue, you can both add items with ```-addItem:``` or ```addItem:atI
 
 Since you'll be working with ```AFSoundItem``` to manage your tracks, you can obtain the metadata related like the ```title```, ```album```, ```artist``` and ```artwork```.
 
+```objc
 [_queue listenFeedbackUpdatesWithBlock:^(AFSoundItem *item) {
         
     NSLog(@"Item duration: %ld - time elapsed: %ld", (long)item.duration, (long)item.timePlayed);
@@ -133,6 +134,7 @@ Since you'll be working with ```AFSoundItem``` to manage your tracks, you can ob
     
     [self updateArtwork:nextItem.artwork];
 }];
+```
 
 ###Recording a sound
 
